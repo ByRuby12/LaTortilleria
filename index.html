@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#e85d04">
+    <title id="meta-title"></title>index.html
+    <meta id="meta-description" name="description" content="">
+    <meta id="meta-keywords" name="keywords" content="">
+    <meta id="meta-author" name="author" content="">
+    <link rel="icon" href="images/icono_web.png?v=5" type="image/png" sizes="32x32">
+    <link rel="shortcut icon" href="images/icono_web.png?v=5" type="image/png">
+    <link rel="apple-touch-icon" href="images/icono_web.png?v=5">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;700&family=Montserrat:wght@400;700&family=Oswald:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="hero-banner" id="heroBanner">
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+            <button class="lang-toggle" onclick="loadMenuForLang(currentLang === 'en' ? 'es' : 'en')" aria-label="Cambiar idioma">
+                <i class="fas fa-globe"></i>
+            </button>
+            <div class="hero-overlay"></div>
+
+            <div class="hero-top">
+                <div class="logo" id="brandLogo"></div>
+                <div class="location-block">
+                    <div class="company-name" id="brandCompany"></div>
+                    <div class="location" id="brandLocation"></div>
+                </div>
+            </div>
+            
+        </div>
+
+        <nav class="category-nav" id="categoryNav"></nav>
+    </div>
+
+    <main>
+        <section id="menuContainer"></section>
+    </main>
+
+    <div class="image-modal" id="imageModal">
+        <div class="image-modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Cerrar imagen">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modalImage" src="" alt="Vista ampliada" />
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-social-block">
+                <p class="footer-social-label" id="footerSocialLabel"></p>
+                <div class="footer-social-list" id="footerSocial"></div>
+            </div>
+            <p class="footer-copy" id="footerCopy"></p>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-init.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

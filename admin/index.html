@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/icono_web.png?v=5" type="image/png">
+    <link rel="shortcut icon" href="../images/icono_web.png?v=5" type="image/png">
+    <title>Panel de administración | Bohio Bar</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-page">
+    <main class="admin-route-shell admin-dashboard-shell">
+        <section class="admin-route-card admin-dashboard-card" aria-labelledby="adminTitle">
+            <header class="admin-panel-header">
+                <div>
+                    <h1 class="admin-dashboard-title" id="adminTitle">Administrador</h1>
+                </div>
+                <div class="admin-header-actions">
+                    <div class="admin-save-state" id="adminSaveState"><i class="fas fa-cloud"></i> <span id="adminSaveStateText">Conectando con Firebase...</span></div>
+                    <a class="admin-secondary-button" href="../index.html"><i class="fas fa-eye"></i> Ver web</a>
+                    <button class="admin-secondary-button" id="adminLogoutButton" type="button"><i class="fas fa-arrow-right-from-bracket"></i> Cerrar sesión</button>
+                </div>
+            </header>
+
+            <details class="admin-password-panel">
+                <summary><i class="fas fa-lock"></i> Cambiar contraseña</summary>
+                <form class="admin-password-form" id="adminPasswordForm">
+                    <label for="adminCurrentPassword">Contraseña actual<input id="adminCurrentPassword" type="password" autocomplete="current-password" required></label>
+                    <label for="adminNewPassword">Nueva contraseña<input id="adminNewPassword" type="password" minlength="6" autocomplete="new-password" required></label>
+                    <label for="adminConfirmPassword">Repetir nueva contraseña<input id="adminConfirmPassword" type="password" minlength="6" autocomplete="new-password" required></label>
+                    <p class="admin-status" id="adminPasswordStatus" role="status"></p>
+                    <button class="admin-primary-button" type="submit"><i class="fas fa-key"></i> Actualizar contraseña</button>
+                </form>
+            </details>
+
+            <div class="admin-toolbar admin-top-toolbar">
+                <div class="admin-language-control">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span class="admin-language-copy">
+                        <strong>Idioma de la carta</strong>
+                        <small>Selecciona una versión</small>
+                    </span>
+                    <select id="adminLanguage" aria-label="Idioma de la carta">
+                        <option value="es">Español</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+            </div>
+
+            <nav class="admin-tabs" aria-label="Secciones del panel">
+                <button class="admin-tab active" data-admin-tab="business" type="button"><i class="fas fa-building"></i> Negocio</button>
+                <button class="admin-tab" data-admin-tab="social" type="button"><i class="fas fa-share-nodes"></i> Redes</button>
+                <button class="admin-tab" data-admin-tab="menu" type="button"><i class="fas fa-utensils"></i> Carta</button>
+            </nav>
+
+            <section class="admin-tab-panel active" data-admin-panel="business">
+                <div class="admin-form-grid">
+                    <label>Nombre del bar<input data-content-field="brand.companyName" type="text"></label>
+                    <label>Dirección visible<input data-content-field="brand.location" type="text"></label>
+                    <label>Dirección de contacto<input data-content-field="contact.address" type="text"></label>
+                    <label>Horario<input data-content-field="contact.hours" type="text"></label>
+                    <label>Teléfono<input data-content-field="contact.telephone" type="tel"></label>
+                    <label>Correo electrónico<input data-content-field="contact.email" type="email"></label>
+                    <label class="admin-field-wide">Descripción principal<textarea data-content-field="brand.heroText" rows="3"></textarea></label>
+                    <label>Enlace de reseñas<input data-content-field="contact.reviewUrl" type="url"></label>
+                    <p class="admin-field-wide admin-field-help">El contacto y las reservas usarán automáticamente el teléfono indicado.</p>
+                </div>
+            </section>
+
+            <section class="admin-tab-panel" data-admin-panel="social" hidden>
+                <div class="admin-section-heading">
+                    <div><h2>Redes y pedidos online</h2><p>Configura los enlaces de Instagram, TikTok, Facebook, WhatsApp, Uber Eats y Glovo.</p></div>
+                </div>
+                <div id="adminSocialEditor" class="admin-repeat-list"></div>
+            </section>
+
+            <section class="admin-tab-panel" data-admin-panel="menu" hidden>
+                <div class="admin-section-heading">
+                    <div><h2>Carta digital</h2><p>Selecciona una categoría para editar sus productos.</p></div>
+                    <button class="admin-secondary-button" id="adminAddCategoryButton" type="button"><i class="fas fa-folder-plus"></i> Nueva categoría</button>
+                </div>
+                <div class="admin-menu-selector">
+                    <label for="adminCategorySelect">Categoría</label>
+                    <select id="adminCategorySelect"></select>
+                </div>
+                <div id="adminCategoryEditor"></div>
+            </section>
+
+            <details class="admin-advanced">
+                <summary><i class="fas fa-code"></i> Edición avanzada JSON</summary>
+                <label for="adminContentEditor">Contenido web completo</label>
+                <textarea class="admin-json-editor" id="adminContentEditor" spellcheck="false"></textarea>
+                <label for="adminMenuEditor">Carta completa</label>
+                <textarea class="admin-json-editor admin-menu-editor" id="adminMenuEditor" spellcheck="false"></textarea>
+            </details>
+            <p class="admin-status" id="adminStatus" role="status" aria-live="polite">
+                <i class="admin-status-icon" id="adminStatusIcon" aria-hidden="true"></i>
+                <span id="adminStatusText"></span>
+            </p>
+            <div class="admin-actions">
+                <button class="admin-secondary-button" id="adminExportButton" type="button"><i class="fas fa-download"></i> Descargar contenido</button>
+                <button class="admin-secondary-button" id="adminExportMenuButton" type="button"><i class="fas fa-list"></i> Descargar carta</button>
+                <button class="admin-primary-button" id="adminSaveButton" type="button"><i class="fas fa-floppy-disk"></i> Guardar cambios</button>
+            </div>
+        </section>
+    </main>
+    <div class="admin-confirm-overlay" id="adminCategoryDeleteModal" hidden>
+        <div class="admin-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="adminCategoryDeleteTitle">
+            <div class="admin-confirm-icon"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i></div>
+            <h2 id="adminCategoryDeleteTitle">¿Eliminar esta categoría?</h2>
+            <p id="adminCategoryDeleteMessage"></p>
+            <div class="admin-confirm-actions">
+                <button class="admin-secondary-button" id="adminCancelCategoryDelete" type="button">Cancelar</button>
+                <button class="admin-danger-button" id="adminConfirmCategoryDelete" type="button"><i class="fas fa-trash"></i> Eliminar categoría</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="../js/firebase-init.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>

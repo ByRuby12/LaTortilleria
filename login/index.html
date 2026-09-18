@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/icono_web.png?v=5" type="image/png">
+    <link rel="shortcut icon" href="../images/icono_web.png?v=5" type="image/png">
+    <title>Acceso privado | Bohio Bar</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-page admin-login-page">
+    <main class="admin-route-shell">
+        <section class="admin-route-card" aria-labelledby="loginTitle">
+            <span class="admin-eyebrow">Acceso de administrador</span>
+            <h1 id="loginTitle">Iniciar sesión</h1>
+            <p class="admin-route-intro">Gestiona la carta de Bohio Bar.</p>
+            <form class="admin-login" id="routeLoginForm">
+                <label for="routeEmail">Correo de administrador</label>
+                <input id="routeEmail" name="email" type="email" placeholder="admin@bohiobar.com" autocomplete="username" required autofocus>
+                <label for="routePassword">Contraseña</label>
+                <input id="routePassword" name="password" type="password" autocomplete="current-password" required>
+                <p class="admin-error" id="routeLoginError" role="alert"></p>
+                <button class="admin-primary-button" type="submit"><i class="fas fa-arrow-right-to-bracket"></i> Entrar al panel</button>
+            </form>
+            <a class="admin-secondary-button admin-web-button" href="../index.html"><i class="fas fa-eye"></i> Acceder a la web</a>
+        </section>
+    </main>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="../js/firebase-init.js"></script>
+    <script>
+        const form = document.getElementById('routeLoginForm');
+        const error = document.getElementById('routeLoginError');
+
+        window.firebaseAuth.onAuthStateChanged(user => {
+            if (user) window.location.replace('../admin/');
+        });
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            const data = new FormData(form);
+            error.textContent = '';
+            window.firebaseAuth.signInWithEmailAndPassword(data.get('email'), data.get('password'))
+                .then(() => { window.location.href = '../admin/'; })
+                .catch(firebaseError => {
+                    const messages = {
+                        'auth/operation-not-allowed': 'Activa Email/Password en Firebase Authentication.',
+                        'auth/user-not-found': 'Ese correo todavía no existe en Firebase Authentication.',
+                        'auth/invalid-credential': 'El correo o la contraseña no son correctos.',
+                        'auth/invalid-email': 'Escribe un correo electrónico válido.'
+                    };
+                    error.textContent = messages[firebaseError.code] || 'No se pudo iniciar sesión. Revisa la configuración de Firebase.';
+                });
+        });
+    </script>
+</body>
+</html>
