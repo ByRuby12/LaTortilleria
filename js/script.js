@@ -197,6 +197,28 @@ function buildSocialArray(redes) {
 function mergeSocialLinks(primaryContent, fallbackContent) {
     const primary = Array.isArray(primaryContent?.footer?.social) ? primaryContent.footer.social : [];
     const fallback = Array.isArray(fallbackContent?.footer?.social) ? fallbackContent.footer.social : [];
+
+    const whatsappLink = {
+        key: 'whatsapp',
+        name: 'WhatsApp',
+        icon: 'fab fa-whatsapp',
+        color: '#25D366',
+        url: 'https://whatsapp.com/channel/0029Vb88l23H5JLuUhmLIO01'
+    };
+
+    const allLinks = [...primary, ...fallback];
+    const hasWhatsapp = allLinks.some(link => (link.key || link.name?.toLowerCase()) === 'whatsapp');
+
+    if (!hasWhatsapp) {
+        fallback.push(whatsappLink);
+    } else {
+        const primaryIndex = primary.findIndex(link => (link.key || link.name?.toLowerCase()) === 'whatsapp');
+        if (primaryIndex >= 0) primary[primaryIndex] = { ...primary[primaryIndex], ...whatsappLink };
+
+        const fallbackIndex = fallback.findIndex(link => (link.key || link.name?.toLowerCase()) === 'whatsapp');
+        if (fallbackIndex >= 0) fallback[fallbackIndex] = { ...fallback[fallbackIndex], ...whatsappLink };
+    }
+
     const keys = [...new Set([...primary, ...fallback].map(link => link.key || link.name?.toLowerCase()).filter(Boolean))];
 
     return keys.map(key => {
