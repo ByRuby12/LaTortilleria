@@ -57,12 +57,15 @@
             <section class="admin-tab-panel active" data-admin-panel="business">
                 <div class="admin-form-grid">
                     <label>Nombre del bar<input data-content-field="brand.companyName" type="text"></label>
+                    <label>Logotipo de cabecera (ruta o URL)<input data-content-field="brand.logoImage" type="text" placeholder="images/logo-bar.png o https://..."></label>
+                    <label>Logotipo de Contacto (ruta o URL)<input data-content-field="contact.logoImage" type="text" placeholder="Vacío = usar el logo de cabecera"></label>
                     <label>Dirección visible<input data-content-field="brand.location" type="text"></label>
                     <label>Dirección de contacto<input data-content-field="contact.address" type="text"></label>
                     <label>Horario<input data-content-field="contact.hours" type="text"></label>
                     <label>Teléfono<input data-content-field="contact.telephone" type="tel"></label>
                     <label>Correo electrónico<input data-content-field="contact.email" type="email"></label>
                     <label class="admin-field-wide">Descripción principal<textarea data-content-field="brand.heroText" rows="3"></textarea></label>
+                    <label class="admin-field-wide">Texto de copyright y pie<textarea data-content-field="footer.text" rows="2"></textarea></label>
                     <label>Enlace de reseñas<input data-content-field="contact.reviewUrl" type="url"></label>
                     <p class="admin-field-wide admin-field-help">El contacto y las reservas usarán automáticamente el teléfono indicado.</p>
                 </div>

@@ -480,7 +480,7 @@ function normalizeContent(content) {
         contact: {
             heading: contact.heading || contact.encabezado,
             description: contact.description || contact.descripcion,
-            logoImage: contact.logoImage || contact.logoImagen || content.logo || '',
+            logoImage: contact.logoImage || contact.logoImagen || content.logo || brand.logoImage || brand.logoImagen || DEFAULT_BRAND_ASSETS.logo,
             companyName: contact.companyName || contact.nombreEmpresa || content.nombreBar,
             address: contact.address || contact.direccion || content.direccion,
             hours: contact.hours || contact.horario || content.horario,
@@ -634,11 +634,12 @@ function renderMenu(categories, content) {
 
                 const itemImage = normalizeAssetPath(item.image);
                 const shouldUseImage = shouldRenderProductImage(itemImage);
+                const hasMultiplePrices = String(item.price ?? '').includes('/');
                 const imageClass = shouldUseImage ? 'product-image lazy-image' : 'product-image product-image-placeholder';
                 card.innerHTML = `
                     <div class="${imageClass}"${shouldUseImage ? ` data-src="${itemImage}"` : ''}></div>
                     <div class="product-info">
-                        <div class="product-header">
+                        <div class="product-header ${hasMultiplePrices ? 'product-header-multiple' : ''}">
                             <h3 class="product-title">${item.name}</h3>
                             <span class="product-price">${formatProductPrice(item.price)}</span>
                         </div>

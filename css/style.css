@@ -2302,6 +2302,17 @@ body.admin-is-open {
         align-items: flex-start;
     }
 
+    .product-header-multiple {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+    }
+
+    .product-header-multiple .product-price {
+        justify-self: start;
+        white-space: normal;
+        text-align: left;
+    }
+
     .product-card {
         grid-template-rows: 160px 1fr;
     }
